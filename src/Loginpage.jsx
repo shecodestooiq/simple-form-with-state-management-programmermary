@@ -1,38 +1,36 @@
-import React, { useContext, useState } from 'react'
-import { Navigate,  useNavigate } from 'react-router-dom'
-import UserContext from './Context'
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import UserContext from './Context';
 
-export default function Loginpage() {
-    const[name , setName] = useState('')
-    const [password ,setPassword] =useState('')
-    const { setUser, setPassword: setUserPassword } = useContext(UserContext);
-    const navigate = useNavigate()
-    const handleSubmit = e =>{
-        e.preventDefault()
-        setUser(name)
-        setPassword(password)
-         navigate('/userinfo')
-    }
+export default function LoginPage() {
+  const { setUser, setPassword, setAge } = useContext(UserContext);
+
+  const onChangeUser = (e) => {
+    setUser(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onChangeAge = (e) => {
+    setAge(e.target.value);
+  };
+
   return (
     <div>
       <h1>LoginPage</h1>
-      <form onSubmit={handleSubmit}>
-        <input 
-        type='text' 
-        value={name} 
-        onChange={e=>setName(e.target.value)}
-        placeholder='name'/><br></br>
-       <input 
-        type='password' 
-        value={password} 
-        onChange={e=>setPassword(e.target.value)}
-        placeholder='password'/><br/>
-        <input 
-        type="submit"
-         />
+      <form className='form'>
+        <input className='input-item'type='text' onChange={onChangeUser} placeholder='name' />
+        <br />
+        <input className='input-item' type='password' onChange={onChangePassword} placeholder='password' />
+        <br />
+        <input className='input-item' type='number' onChange={onChangeAge} placeholder='Age' />
+        <br />
+        <Link to={'/UserPageInfo'}>
+          <input className='input-btn' type='submit' />
+        </Link>
       </form>
-      <h1>{name}</h1>
-      <h1>{password}</h1>
     </div>
-  )
+  );
 }

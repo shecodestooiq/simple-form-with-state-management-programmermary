@@ -1,28 +1,22 @@
 import './App.css';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import LoginPage from './Loginpage';
 import UserInfoPage from './UserPageInfo';
 import UserContext from './Context';
+import { UserProvider } from './Context';
 
 function App() {
-  const [user , setUser] = useState()
- return(
-  <div>
-     <UserContext.Provider value={{user , setUser}}>
-    <Router>
-      <Routes>
-       
-        <Route path="/" element={<LoginPage/>}></Route>
-        <Route path='userinfo' element={<UserInfoPage/>}></Route>
-        
-      </Routes>
-    </Router>
-    </UserContext.Provider>
-    {/* <LoginPage/>
-    <UserInfoPage/> */}
-  </div>
- )
+  return(
+<div className='app'>
+  <BrowserRouter>
+  <Routes>
+  <Route path='/' element={<UserProvider><LoginPage/></UserProvider>}></Route>
+    <Route path='/UserPageInfo' element={<UserProvider><UserInfoPage/></UserProvider>}></Route>
+  </Routes>
+  </BrowserRouter>
+</div>
+  )
 }
 
 export default App;
